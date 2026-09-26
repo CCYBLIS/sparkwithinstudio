@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,6 +58,12 @@
         <a href="#footer">CONTACT</a>
 
     </nav>
+
+    <button class="menu-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 
 </header>
 
@@ -254,5 +261,38 @@
 
 </div>
 
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+/* Hamburger Menu Toggle */
+
+const menuToggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('nav');
+
+menuToggle.addEventListener('click', () => {
+    menuToggle.classList.toggle('active');
+    nav.classList.toggle('open');
+});
+
+nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        nav.classList.remove('open');
+    });
+});
+
+document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target) && !menuToggle.contains(e.target)) {
+        menuToggle.classList.remove('active');
+        nav.classList.remove('open');
+    }
+});
+
+</script>
+
 </body>
 </html>
+
