@@ -105,7 +105,7 @@ previousCard();
 });
 
 /* =========================
-   TOUCH — VERTICAL SWIPE
+   TOUCH — VERTICAL + HORIZONTAL SWIPE
 ========================= */
 
 let touchStartY = 0;
