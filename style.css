@@ -201,7 +201,7 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
-padding:20vh 20px 80px;
+padding:30vh 20px 80px;
 }
 
 .hero-logo{
@@ -577,7 +577,7 @@ padding-bottom:8px;
 }
 
 #hero{
-padding:12vh 25px 60px;
+padding:25vh 25px 60px;
 }
 
 h1{
@@ -662,8 +662,13 @@ letter-spacing:1px;
 }
 
 #hero{
-padding:10vh 20px 50px;
-min-height:auto;
+padding:28vh 20px 50px;
+min-height:100vh;
+}
+
+.hero-logo{
+width:min(310px, 60vw);
+max-height:35vh;
 }
 
 h1{
@@ -779,7 +784,11 @@ padding-bottom:80px;
 @media (max-width:400px){
 
 #hero{
-padding:8vh 15px 40px;
+padding:25vh 15px 40px;
+}
+
+.hero-logo{
+width:min(310px, 65vw);
 }
 
 h1{
