@@ -8,7 +8,7 @@ let animating = false;
 const backgroundFrame = document.getElementById("background-frame");
 
 const totalFrames = 118;
-const passiveSteps = 25;
+const passiveSteps = 50;
 
 let backgroundStep = 0;
 
@@ -68,7 +68,7 @@ function nextCard(){
 
     updateBackground();
 
-    if(backgroundStep % 5 === 0){
+    if(backgroundStep % 10 === 0){
         if(current >= cards.length - 1){
             animating = false;
             return;
@@ -99,7 +99,7 @@ function previousCard(){
 
     updateBackground();
 
-    if(backgroundStep % 5 === 4){
+    if(backgroundStep % 10 === 9){
         if(current <= 0){
             animating = false;
             return;
