@@ -58,17 +58,29 @@ cards[current + 2].classList.add("far-right");
 
 function nextCard(){
 
-if(animating) return;
-if(current >= cards.length - 1) return;
+    if(animating) return;
 
-animating = true;
-current++;
-updateCarousel();
+    if(backgroundStep >= passiveSteps) return;
 
-setTimeout(()=>{
-animating = false;
-},150);
+    animating = true;
 
+    backgroundStep++;
+
+    updateBackground();
+
+    if(backgroundStep % 3 === 0){
+        if(current >= cards.length - 1){
+            animating = false;
+            return;
+        }
+
+        current++;
+        updateCarousel();
+    }
+
+    setTimeout(()=>{
+        animating = false;
+    },150);
 }
 
 /* =========================
@@ -77,17 +89,29 @@ animating = false;
 
 function previousCard(){
 
-if(animating) return;
-if(current <= 0) return;
+    if(animating) return;
 
-animating = true;
-current--;
-updateCarousel();
+    if(backgroundStep <= 0) return;
 
-setTimeout(()=>{
-animating = false;
-},150);
+    animating = true;
 
+    backgroundStep--;
+
+    updateBackground();
+
+    if(backgroundStep % 3 === 2){
+        if(current <= 0){
+            animating = false;
+            return;
+        }
+
+        current--;
+        updateCarousel();
+    }
+
+    setTimeout(()=>{
+        animating = false;
+    },150);
 }
 
 /* =========================
@@ -174,4 +198,4 @@ if(Math.abs(diffX) > Math.abs(diffY)){
 ========================= */
 
 updateCarousel();
-
+updateBackground();
