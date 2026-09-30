@@ -5,7 +5,23 @@ document.querySelectorAll(".project-card");
 let current = 0;
 
 let animating = false;
+const backgroundFrame = document.getElementById("background-frame");
 
+const totalFrames = 118;
+const passiveSteps = 15;
+
+let backgroundStep = 0;
+
+function updateBackground(){
+    const frame = Math.round(
+        1 + (backgroundStep / passiveSteps) * (totalFrames - 1)
+    );
+
+    const frameNumber = String(frame).padStart(3,"0");
+
+    backgroundFrame.src =
+        `assets/projectsbackground/hero_asset_level.${frameNumber}.webp`;
+}
 /* =========================
    UPDATE POSITIONS
 ========================= */
