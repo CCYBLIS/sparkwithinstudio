@@ -8,19 +8,98 @@ let animating = false;
 const backgroundFrame = document.getElementById("background-frame");
 
 const totalFrames = 118;
-const passiveSteps = 50;
+const passiveSteps = 25;
+const stepsPerProject = 5;
 
 let backgroundStep = 0;
+let currentFrame = 1;
+let backgroundAnimating = false;
 
-function updateBackground(){
-    const frame = Math.round(
-        1 + (backgroundStep / passiveSteps) * (totalFrames - 1)
-    );
+const frameCache = [];
 
-    const frameNumber = String(frame).padStart(3,"0");
+for(let i = 1; i <= totalFrames; i++){
 
-    backgroundFrame.src =
+    const frameNumber = String(i).padStart(3,"0");
+
+    const image = new Image();
+
+    image.src =
         `assets/projectsbackground/hero_asset_level.${frameNumber}.webp`;
+
+    frameCache.push(image);
+}
+
+function getFrameForStep(step){
+
+    return Math.round(
+        1 + (step / passiveSteps) * (totalFrames - 1)
+    );
+}
+
+function animateBackground(targetFrame, onComplete){
+
+    if(backgroundAnimating) return;
+
+    backgroundAnimating = true;
+
+    const startFrame = currentFrame;
+    const frameDifference = targetFrame - startFrame;
+
+    if(frameDifference === 0){
+
+        backgroundAnimating = false;
+
+        if(onComplete) onComplete();
+
+        return;
+    }
+
+    const frameTime = 1000 / 30;
+    const duration = Math.abs(frameDifference) * frameTime;
+
+    const startTime = performance.now();
+
+    function animate(time){
+
+        const progress = Math.min(
+            (time - startTime) / duration,
+            1
+        );
+
+        const easedProgress =
+            progress * (2 - progress);
+
+        const frame = Math.round(
+            startFrame +
+            frameDifference * easedProgress
+        );
+
+        if(frame !== currentFrame){
+
+            currentFrame = frame;
+
+            backgroundFrame.src =
+                frameCache[frame - 1].src;
+        }
+
+        if(progress < 1){
+
+            requestAnimationFrame(animate);
+
+        }else{
+
+            currentFrame = targetFrame;
+
+            backgroundFrame.src =
+                frameCache[targetFrame - 1].src;
+
+            backgroundAnimating = false;
+
+            if(onComplete) onComplete();
+        }
+    }
+
+    requestAnimationFrame(animate);
 }
 /* =========================
    UPDATE POSITIONS
@@ -58,29 +137,28 @@ cards[current + 2].classList.add("far-right");
 
 function nextCard(){
 
-    if(animating) return;
+    if(backgroundAnimating) return;
 
     if(backgroundStep >= passiveSteps) return;
 
-    animating = true;
+    const nextStep = backgroundStep + 1;
+    const targetFrame = getFrameForStep(nextStep);
 
-    backgroundStep++;
+    animateBackground(targetFrame, ()=>{
 
-    updateBackground();
+        backgroundStep = nextStep;
 
-    if(backgroundStep % 10 === 0){
-        if(current >= cards.length - 1){
-            animating = false;
-            return;
+        if(backgroundStep % stepsPerProject === 0){
+
+            if(current >= cards.length - 1){
+                return;
+            }
+
+            current++;
+
+            updateCarousel();
         }
-
-        current++;
-        updateCarousel();
-    }
-
-    setTimeout(()=>{
-        animating = false;
-    },150);
+    });
 }
 
 /* =========================
@@ -89,29 +167,28 @@ function nextCard(){
 
 function previousCard(){
 
-    if(animating) return;
+    if(backgroundAnimating) return;
 
     if(backgroundStep <= 0) return;
 
-    animating = true;
+    const previousStep = backgroundStep - 1;
+    const targetFrame = getFrameForStep(previousStep);
 
-    backgroundStep--;
+    animateBackground(targetFrame, ()=>{
 
-    updateBackground();
+        backgroundStep = previousStep;
 
-    if(backgroundStep % 10 === 9){
-        if(current <= 0){
-            animating = false;
-            return;
+        if(backgroundStep % stepsPerProject === stepsPerProject - 1){
+
+            if(current <= 0){
+                return;
+            }
+
+            current--;
+
+            updateCarousel();
         }
-
-        current--;
-        updateCarousel();
-    }
-
-    setTimeout(()=>{
-        animating = false;
-    },150);
+    });
 }
 
 /* =========================
@@ -198,4 +275,4 @@ if(Math.abs(diffX) > Math.abs(diffY)){
 ========================= */
 
 updateCarousel();
-updateBackground();
+
