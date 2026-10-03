@@ -13,17 +13,30 @@ overflow:hidden;
 }
 
 /* =========================
-   VIDEO BACKGROUND
+   BACKGROUND SEQUENCE
 ========================= */
 
-.background-video{
+.background-sequence{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-object-fit:cover;
 z-index:-2;
+overflow:hidden;
+-webkit-transform:translateZ(0);
+transform:translateZ(0);
+-webkit-backface-visibility:hidden;
+backface-visibility:hidden;
+will-change:transform;
+}
+
+.background-sequence img{
+width:100%;
+height:100%;
+object-fit:cover;
+-webkit-transform:translateZ(0);
+transform:translateZ(0);
 }
 
 .overlay{
@@ -34,22 +47,8 @@ width:100%;
 height:100%;
 background:linear-gradient(to bottom, rgba(0,0,0,.15), rgba(0,0,0,.3));
 z-index:-1;
-}
-
-.background-sequence{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-2;
-overflow:hidden;
-}
-
-.background-sequence img{
-width:100%;
-height:100%;
-object-fit:cover;
+-webkit-transform:translateZ(0);
+transform:translateZ(0);
 }
 
 /* =========================
