@@ -32,6 +32,11 @@ background-size:cover;
 background-position:center top;
 background-repeat:no-repeat;
 z-index:-3;
+-webkit-transform:translateZ(0);
+transform:translateZ(0);
+-webkit-backface-visibility:hidden;
+backface-visibility:hidden;
+will-change:transform;
 }
 
 /* =========================
@@ -49,6 +54,8 @@ backdrop-filter:blur(6px);
 background:rgba(0,0,0,.08);
 z-index:-2;
 pointer-events:none;
+-webkit-transform:translateZ(0);
+transform:translateZ(0);
 }
 
 /* =========================
@@ -201,7 +208,7 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
-padding:33vh 20px 80px;
+padding:30vh 20px 80px;
 }
 
 .hero-logo{
