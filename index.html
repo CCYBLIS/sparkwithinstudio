@@ -295,15 +295,22 @@ document.addEventListener('click', (e) => {
 
 /* =========================
    SMART LOGO POSITIONING
-   Calculates where background-size:cover
-   places the chest on any screen size
+
+   Mirrors the exact math of
+   background-size:cover +
+   background-position:center top
+
+   Change CHEST_Y to move logo
+   up (lower number) or down
+   (higher number).
 ========================= */
 
-const IMG_W = 3840;
-const IMG_H = 2160;
-const CHEST_Y = 0.35;
+const IMG_W = 1672;
+const IMG_H = 947;
+const CHEST_Y = 0.461;
 
 const hero = document.getElementById('hero');
+const logo = document.querySelector('.hero-logo');
 
 function positionLogo(){
 
@@ -316,29 +323,41 @@ function positionLogo(){
     let renderedH, offsetY;
 
     if(screenRatio > imgRatio){
-
+        /* Screen wider than image — scale by width, image overflows vertically */
         renderedH = vw / imgRatio;
-        offsetY = (vh - renderedH) / 2;
-
+        offsetY = -(renderedH - vh) / 2;
+        /* center top: image anchored at top */
+        offsetY = 0;
     }else{
-
+        /* Screen taller than image — scale by height, image overflows horizontally */
         renderedH = vh;
         offsetY = 0;
     }
 
-    const chestOnScreen = offsetY + (renderedH * CHEST_Y);
+    /* Where the chest lands on this screen */
+    const chestPx = offsetY + (renderedH * CHEST_Y);
 
-    const logoPx = Math.max(80, Math.min(chestOnScreen, vh * 0.75));
+    /* Clamp so logo never goes off screen */
+    const safePx = Math.max(80, Math.min(chestPx, vh * 0.85));
 
-    hero.style.paddingTop = logoPx + 'px';
+    /* Half the logo height so logo CENTER sits on the chest */
+    const logoH = logo.offsetHeight || 0;
+    const finalPx = safePx - (logoH / 2);
+
+    hero.style.paddingTop = Math.max(60, finalPx) + 'px';
 }
 
+/* Run on load, resize, and orientation change */
 positionLogo();
 
 window.addEventListener('resize', positionLogo);
+
 window.addEventListener('orientationchange', () => {
-    setTimeout(positionLogo, 150);
+    setTimeout(positionLogo, 200);
 });
+
+/* Recalculate once logo image loads (gets its real height) */
+logo.addEventListener('load', positionLogo);
 
 </script>
 
