@@ -267,6 +267,10 @@
 
 <script>
 
+/* =========================
+   HAMBURGER MENU
+========================= */
+
 const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('nav');
 
@@ -287,6 +291,53 @@ document.addEventListener('click', (e) => {
         menuToggle.classList.remove('active');
         nav.classList.remove('open');
     }
+});
+
+/* =========================
+   SMART LOGO POSITIONING
+   Calculates where background-size:cover
+   places the chest on any screen size
+========================= */
+
+const IMG_W = 3840;
+const IMG_H = 2160;
+const CHEST_Y = 0.65;
+
+const hero = document.getElementById('hero');
+
+function positionLogo(){
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    const imgRatio = IMG_W / IMG_H;
+    const screenRatio = vw / vh;
+
+    let renderedH, offsetY;
+
+    if(screenRatio > imgRatio){
+
+        renderedH = vw / imgRatio;
+        offsetY = (vh - renderedH) / 2;
+
+    }else{
+
+        renderedH = vh;
+        offsetY = 0;
+    }
+
+    const chestOnScreen = offsetY + (renderedH * CHEST_Y);
+
+    const logoPx = Math.max(80, Math.min(chestOnScreen, vh * 0.75));
+
+    hero.style.paddingTop = logoPx + 'px';
+}
+
+positionLogo();
+
+window.addEventListener('resize', positionLogo);
+window.addEventListener('orientationchange', () => {
+    setTimeout(positionLogo, 150);
 });
 
 </script>
