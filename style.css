@@ -212,7 +212,7 @@ padding:30vh 20px 80px;
 }
 
 .hero-logo{
-width:min(310px, 55vw);
+width:310px;
 max-height:40vh;
 object-fit:contain;
 margin-bottom:25px;
@@ -668,6 +668,10 @@ letter-spacing:1px;
 min-height:100vh;
 }
 
+.hero-logo{
+width:200px;
+}
+
 h1{
 font-size:2rem;
 letter-spacing:2px;
@@ -780,6 +784,10 @@ padding-bottom:80px;
 
 @media (max-width:400px){
 
+.hero-logo{
+width:160px;
+}
+
 h1{
 font-size:1.6rem;
 }
@@ -828,6 +836,7 @@ width:100%;
 @media (max-height:500px) and (orientation:landscape){
 
 .hero-logo{
+width:140px;
 max-height:25vh;
 }
 
