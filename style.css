@@ -213,7 +213,7 @@ padding:0 20px 80px;
 
 .hero-logo{
 position:absolute;
-top:50vh;
+top:55vh;
 left:50%;
 transform:translate(-50%,-50%);
 width:min(310px,28vw);
