@@ -203,22 +203,34 @@ transform:translateY(-6px) rotate(-45deg);
 
 #hero{
 min-height:100vh;
+position:relative;
 display:flex;
 flex-direction:column;
-justify-content:center;
 align-items:center;
 text-align:center;
-padding:30vh 20px 80px;
+padding:0 20px 80px;
 }
 
 .hero-logo{
-width:min(310px, 55vw);
-max-height:40vh;
+position:absolute;
+top:45vh;
+left:50%;
+transform:translate(-50%,-50%);
+width:min(310px,28vw);
 object-fit:contain;
-margin-bottom:25px;
+z-index:2;
 filter:
 drop-shadow(0 0 20px rgba(255,180,70,.55))
 drop-shadow(0 0 60px rgba(255,180,70,.35));
+pointer-events:none;
+}
+
+.hero-content{
+display:flex;
+flex-direction:column;
+align-items:center;
+text-align:center;
+padding-top:72vh;
 }
 
 h1{
@@ -526,6 +538,10 @@ h1{
 font-size:3.5rem;
 }
 
+.hero-logo{
+width:min(280px,30vw);
+}
+
 .hero-line{
 width:80px;
 }
@@ -583,8 +599,13 @@ letter-spacing:3px;
 padding-bottom:8px;
 }
 
-#hero{
-padding:25vh 25px 60px;
+.hero-logo{
+top:42vh;
+width:min(220px,45vw);
+}
+
+.hero-content{
+padding-top:68vh;
 }
 
 h1{
@@ -668,14 +689,13 @@ font-size:12px;
 letter-spacing:1px;
 }
 
-#hero{
-padding:28vh 20px 50px;
-min-height:100vh;
+.hero-logo{
+top:40vh;
+width:min(180px,50vw);
 }
 
-.hero-logo{
-width:min(310px, 60vw);
-max-height:35vh;
+.hero-content{
+padding-top:65vh;
 }
 
 h1{
@@ -790,12 +810,13 @@ padding-bottom:80px;
 
 @media (max-width:400px){
 
-#hero{
-padding:25vh 15px 40px;
+.hero-logo{
+top:38vh;
+width:min(150px,55vw);
 }
 
-.hero-logo{
-width:min(310px, 65vw);
+.hero-content{
+padding-top:62vh;
 }
 
 h1{
@@ -835,6 +856,66 @@ letter-spacing:1px;
 
 nav{
 width:100%;
+}
+
+}
+
+/* =========================
+   LANDSCAPE PHONES
+========================= */
+
+@media (max-height:500px) and (orientation:landscape){
+
+.hero-logo{
+top:45vh;
+width:min(140px,20vw);
+}
+
+.hero-content{
+padding-top:55vh;
+}
+
+h1{
+font-size:1.8rem;
+}
+
+h2{
+font-size:0.7rem;
+letter-spacing:4px;
+}
+
+.hero-line{
+width:40px;
+}
+
+#hero p{
+font-size:1rem;
+margin-top:15px;
+}
+
+.button{
+margin-top:20px;
+padding:12px 30px;
+font-size:11px;
+}
+
+.socials{
+margin-top:15px;
+gap:6px;
+}
+
+.socials a{
+padding:8px 12px;
+font-size:10px;
+}
+
+.scroll-indicator{
+margin-top:20px;
+}
+
+.scroll-top-line,
+.scroll-bottom-line{
+height:25px;
 }
 
 }
